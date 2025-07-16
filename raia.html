@@ -64,25 +64,34 @@
 
     .sidebar ul li a {
       text-decoration: none;
-      color: #fff;
-      padding: 10px;
+      color: #ffffff;
+      padding: 0px;
       display: block;
-      border: 1px solid #7d7272;
+      border: 0px solid #7d7272;
       border-radius: px;
       transition: background 0.3s;
     }
 
     .sidebar ul li a:hover {
-      background-color: #444;
+      background-color: #4a70d1;
     }
 
     /* メインコンテンツ */
     .main {
-      margin-left: 200px;
-      margin-top: 60px; /* 上部ヘッダーの高さ分ずらす */
-      padding: 30px;
-      overflow-y: auto;
-    }
+  margin-left: 210px;
+  margin-top: 30px;
+  padding: 30px;
+  overflow-y: auto;
+  background-color: transparent; /* ← 背景色はここでは無し */
+}
+
+.main-content {
+  background-color: #000; /* ← ここで背景色を指定 */
+  padding: 30px;
+  border-radius: 0px; /* 角丸が欲しい場合 */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); /* 軽い浮き上がり */
+}
+
 
     /* ボタンスタイル */
     .rounded-button {
@@ -110,6 +119,49 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
+
+.tab-menu {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 15px;
+}
+
+.tab {
+  color: #fff;
+  text-decoration: none;
+  padding: 1px 15px;
+  border: 1px solid #666;       /* 枠をつける */
+  border-radius: 0px;
+  position: relative;
+  background-color: #111;
+  transition: all 0.3s;
+    width: 100px; /* ✅ ボタン幅を均一化 */
+  display: flex;
+align-items: center;   /* ← 縦方向の中央揃え */
+justify-content: center; /* ← 横方向の中央揃え */
+  font-size: 11px;     /* ✅ 文字サイズを変更可能 */
+  height: 50px
+}
+
+/* ホバーまたはアクティブなタブに「上の青バー」 */
+.tab::before {
+  content: "";
+  position: absolute;
+  top: 0;               /* ← 上にバーを表示 */
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: transparent;
+  transition: background-color 0.3s;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.tab:hover::before,
+.tab.active::before {
+  background-color: #4a70d1;  /* 青いバー */
+}
+
   </style>
 </head>
 <body>
@@ -121,38 +173,46 @@
   <!-- 左サイドバー -->
   <div class="sidebar">
     <h1>メニュー</h1>
-    <ul>
-      <li><a href="index.html">メニューに戻る</a></li>
-      <li><a href="raia.html">ダッシュボード</a></li>
-      <li><a href="https://docs.google.com/forms/u/4/">メール確認</a></li>
-      
-      <li><a  href="famiriymemo.html">家族メモ</a></li>
     
-      <li><a  href="calendar.html">カレンダー</a></li>
-      <li><a  href="otoiawase.html">異常報告</a></li>
+
+    <div class="tab-menu">
+  <a href="Oshirase.html" class="tab">お知らせ</a>
+  <a href="setting.html" class="tab">設定</a>
+</div>
+
+
+    <ul>
+      <li><a href="index.html">+メニューに戻る</a></li>
+      <li><a href="raia.html">+ダッシュボード</a></li>
+      <li><a href="https://docs.google.com/forms/u/4/">+メール確認</a></li>
       
-      <button id="emergencyBtn" class="glass">緊急モード</button>
+      <li><a  href="famiriymemo.html">+家族メモ</a></li>
+    
+      <li><a  href="calendar.html">+カレンダー</a></li>
+      <li><a  href="otoiawase.html">+異常報告</a></li>
+      
+      <button id="emergencyBtn" class="glass">//~***緊急モード***~//</button>
     </ul>
   </div>
 
   <!-- メインコンテンツ -->
   <div class="main">
-  <h2>Nocomiyダッシュボードへようこそ</h2>
-  <p>ここにコンテンツが表示されます。</p>
-  <button class="rounded-button">Nocomiy</button>
+  <div class="main-content">
+    <h2>Nocomiyダッシュボードへようこそ</h2>
+    <p>ここにコンテンツが表示されます。</p>
+    <button class="rounded-button">Nocomiy</button>
 
-  <!-- Googleフォームの埋め込み -->
+    <h2>Tommyのダッシュボード</h2>
+    <p>ここにコンテンツが表示されます。</p>
+    <button class="rounded-button">Tommy</button>
+  </div>
+</div>
+
+
   
 </div>
 
-<div class="main">
-  <h2>Tommyのダッシュボード</h2>
-  <p>ここにコンテンツが表示されます。</p>
-  <button class="rounded-button">Tommy</button>
 
-  <!-- Googleフォームの埋め込み -->
- 
-</div>
 </body>
 <script>
   (function() {
