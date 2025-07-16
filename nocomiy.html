@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #1e1e1e;
+      color: #ffffff;
+    }
+
+    /* 上部ヘッダー */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 35px;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    .topbar h2 {
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    /* サイドヘッダー */
+    .sidebar {
+      position: fixed;
+      top: 30px; /* 上部ヘッダーの高さ分ずらす */
+      left: 0;
+      width: 200px;
+      height: calc(100vh - 30px);
+      background-color: #000000;
+      padding: 20px;
+    }
+
+    .sidebar h1 {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 5px;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #fff;
+      padding: 10px;
+      display: block;
+      border: 1px solid #7d7272;
+      border-radius: px;
+      transition: background 0.3s;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #444;
+    }
+
+    /* メインコンテンツ */
+    .main {
+      margin-left: 200px;
+      margin-top: 60px; /* 上部ヘッダーの高さ分ずらす */
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    /* ボタンスタイル */
+    .rounded-button {
+      background-color: #000;
+      color: #fff;
+      border: 0.1px solid #857d7d;
+      padding: 10px 20px;
+      border-radius: px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .rounded-button:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .glass {
+        padding: 10px;
+        padding: auto;
+  background: rgb(255, 0, 0);
+  border-radius: px;
+  border: px solid rgb(0, 26, 255);
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.718);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+  </style>
+</head>
+<body>
+  <!-- 上部ヘッダー -->
+  <div class="topbar">
+    <h2>Nocomiy　　　　　　Health-PRO ダッシュボード</h2>
+  </div>
+
+  <!-- 左サイドバー -->
+  <div class="sidebar">
+    <h1>メニュー</h1>
+    <ul>
+      <li><a href="index.html">ダッシュボード</a></li>
+      <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfyDnUv-zfBM26FQ9v0XY1-4PpCPZzC6KAhzmbO2PaeI9OUkw/viewform?usp=dialog">健康報告</a></li>
+      <li><a  href="famiriymemo.html">家族メモ</a></li>
+      <li><a  href="calendar.html">カレンダー</a></li>
+      <li><a  href="otoiawase.html">異常報告</a></li>
+      <button id="emergencyBtn" class="glass">緊急モード</button>
+    </ul>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <div class="main">
+    <h2>Nocomiyさん！ダッシュボードへようこそ</h2>
+    <p>ここにコンテンツが表示されます。</p>
+    <p>お知らせはGmailまたはimassegeに送信いたします！</p>
+    <button class="rounded-button">Nocomiy</button>
+  </div>
+  <!-- Googleフォームの埋め込み -->
+  <iframe 
+    src="https://docs.google.com/forms/d/e/1FAIpQLSfyDnUv-zfBM26FQ9v0XY1-4PpCPZzC6KAhzmbO2PaeI9OUkw/viewform?usp=dialog" 
+    width="100%" 
+    height="800" 
+    frameborder="0" 
+    marginheight="0" 
+    marginwidth="0">
+    読み込んでいます…
+  </iframe>
+</div>
+</body>
+<script>
+  (function() {
+    const emergencyNumber = '119';  // 例: 080-****-**** // 日本の119（消防／救急）。警察なら'110'に変更
+    const btn = document.getElementById('emergencyBtn');
+    let armed = false;
+    let timer = null;
+
+    btn.addEventListener('click', () => {
+      if (!armed) {
+        // 一度目のタップ：発信モードにアーム
+        armed = true;
+        btn.textContent = '確認：もう一度タップで通報';
+        btn.style.background = 'rgba(255,0,0,0.6)';  // 強調カラー
+        // 3秒以内に再タップなければリセット
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          armed = false;
+          btn.textContent = '緊急モード';
+          btn.style.background = '';  // 元のスタイルに戻す
+        }, 3000);
+      } else {
+        // 二度目のタップ：電話アプリを起動
+        window.location.href = `tel:${emergencyNumber}`;
+      }
+    });
+  })();
+</script>
+</html>
